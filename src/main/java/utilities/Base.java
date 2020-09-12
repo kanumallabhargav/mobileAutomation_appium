@@ -15,6 +15,7 @@ public class Base
 	public WebDriver driver;
 	Properties prop = new Properties();
 	FileInputStream fis;
+	@SuppressWarnings("rawtypes")
 	public WebDriver connect() throws MalformedURLException, IOException
 	{
 		fis = new FileInputStream(System.getProperty("user.dir")+"/src/main/java/config/appConfig.properties");

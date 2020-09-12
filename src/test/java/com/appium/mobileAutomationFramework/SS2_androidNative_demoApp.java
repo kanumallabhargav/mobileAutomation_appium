@@ -3,17 +3,13 @@ package com.appium.mobileAutomationFramework;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-import io.appium.java_client.MobileDriver;
-import io.appium.java_client.PerformsTouchActions;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 import pageObjects.baseNavigationObjects;
+import pageObjects.formsTabObjects;
+import pageObjects.webViewTabObjects;
+import testData.tbData_helper;
 import utilities.Base;
 import utilities.SwipeActions;
 
@@ -24,11 +20,29 @@ public class SS2_androidNative_demoApp extends Base
 	{
 		driver = connect();
 		baseNavigationObjects baseObject = new baseNavigationObjects(driver);
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc='Forms']")));
-		baseObject.clickOnSwipeTab();
-		Thread.sleep(3000);
+		formsTabObjects formsObject = new formsTabObjects(driver);
 		SwipeActions swipe = new SwipeActions(driver);
-		swipe.specialBottomOrientedSwipe_left();
+		webViewTabObjects webView = new webViewTabObjects(driver);
+
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(baseObject.explicitWait());
+
+		baseObject.clickOnFormsTab();
+		formsObject.getTextBox().sendKeys(tbData_helper.dataInput_textBox());
+		formsObject.flipSwitch();
+		formsObject.clickOnActiveButton();
+
+		baseObject.clickOnSwipeTab();
+		for (int i=0;i<=5;i++)
+		{
+			swipe.specialBottomOrientedSwipe_left();
+		}
+		
+		baseObject.clickOnWebViweTab();
+		wait.until(webView.explicitWait());
+		while(!webView.scrollVerifier())
+		{
+		swipe.swipeUp_generic();
+		}
 	}
 }

@@ -1,28 +1,22 @@
 package com.appium.mobileAutomationFramework;
 
 import org.testng.annotations.Test;
-import org.testng.AssertJUnit;
 
-/**
- * Unit test for simple App.
- */
+import testData.tbData_helper;
+
+import java.io.IOException;
+
 public class AppTest
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
     @Test
-	public void testApp()
+    public void teter_random()
     {
-        AssertJUnit.assertTrue( true );
+    	try {
+			System.out.println(tbData_helper.dataInput_textBox());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error!");
+			e.printStackTrace();
+		}
     }
 }
